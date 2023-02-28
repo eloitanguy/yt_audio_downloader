@@ -26,3 +26,7 @@ and so on, run:
 On Windows, you can run 
 
     python .\audio_downloader.py --playlist_url <url> --album 'album_name' --file_name_prefix 'prefix'
+
+In order to use a manually chosen cover image, use the option ``--manual_cover_art``, with the image placed under 
+``downloads/<album_name>/<file_name_prefix>_cover.jpg``. If the file is not found, a thumbnail will be downloaded 
+automatically.
