@@ -107,5 +107,7 @@ if __name__ == '__main__':
     elif args.video_url != '':
         yt_video = YouTube(args.video_url)
         output_folder = os.path.join('downloads', args.album)
+        if not os.path.isdir(output_folder):
+            os.mkdir(output_folder)
         download_track(yt_video, args.file_name_prefix, output_folder, args.album, cover_filename=None, track_idx=None,
                        track_total=None, downloaded_files=None, n_tries=10, fetch_thumbnail=not args.manual_cover_art)
