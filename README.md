@@ -30,3 +30,7 @@ On Windows, you can run
 In order to use a manually chosen cover image, use the option ``--manual_cover_art``, with the image placed under 
 ``downloads/<album_name>/<file_name_prefix>_cover.jpg``. If the file is not found, a thumbnail will be downloaded 
 automatically.
+
+## Single track download
+
+    python audio_downloader.py --video_url <url> --album 'album_name' --file_name_prefix 'prefix'
