@@ -1,4 +1,4 @@
-from pytube.query import StreamQuery
+from pytubefix.query import StreamQuery
 
 
 def select_audio_stream(stream_list: StreamQuery):

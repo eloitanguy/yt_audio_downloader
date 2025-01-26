@@ -1,4 +1,4 @@
-from pytube.contrib.playlist import Playlist
+from pytubefix.contrib.playlist import Playlist
 from parsers import select_audio_stream
 from metadata_handler import save_metadata
 from cover_downloader import download_cover
@@ -7,8 +7,8 @@ import os
 import argparse
 import re
 from mutagen.mp4 import MP4StreamInfoError
-from pytube.exceptions import PytubeError
-from pytube import YouTube
+from pytubefix.exceptions import PytubeFixError
+from pytubefix import YouTube
 from urllib.error import HTTPError
 
 
@@ -52,7 +52,8 @@ def download_track(yt_video, file_name_prefix, output_folder, album, cover_filen
             save_metadata(filename, title, artist, album_artist, album, track, track_total, date, cover_filename)
             break
 
-        except (StreamNotFoundError, KeyError, MP4StreamInfoError, PytubeError, HTTPError) as e:
+        except (StreamNotFoundError, KeyError, MP4StreamInfoError,
+                PytubeFixError, HTTPError) as e:
             error_count += 1
             print('File {} failed to download, caught {}, attempt [{}/{}]'.format(local_filename, str(e),
                                                                                   error_count, n_tries))
@@ -76,7 +77,7 @@ def download_playlist(playlist_url, album, file_name_prefix, fetch_thumbnail=Tru
     downloaded_files = [f for f in os.listdir(output_folder) if os.path.isfile(os.path.join(output_folder, f))
                         if f[-4:] == '.m4a']
 
-    playlist = Playlist(playlist_url)
+    playlist = Playlist(playlist_url, 'WEB')
     track_total = playlist.length
 
     # download cover if necessary
@@ -105,7 +106,7 @@ if __name__ == '__main__':
     if args.playlist_url != '':
         download_playlist(args.playlist_url, args.album, args.file_name_prefix, not args.manual_cover_art)
     elif args.video_url != '':
-        yt_video = YouTube(args.video_url)
+        yt_video = YouTube(args.video_url, 'WEB')
         output_folder = os.path.join('downloads', args.album)
         if not os.path.isdir(output_folder):
             os.mkdir(output_folder)
